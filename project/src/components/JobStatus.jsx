@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { io } from 'socket.io-client';
 import { Printer, Clock, CheckCircle, XCircle, Loader2, CreditCard } from 'lucide-react';
 
 export default function JobStatus({ job: initialJob, machine, onPaymentComplete }) {
@@ -9,47 +9,32 @@ export default function JobStatus({ job: initialJob, machine, onPaymentComplete 
   const [paymentLoading, setPaymentLoading] = useState(false);
 
   useEffect(() => {
-    const channel = supabase
-      .channel('print-jobs-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'print_jobs',
-          filter: `id=eq.${job.id}`,
-        },
-        (payload) => {
-          console.log('Job updated:', payload);
-          if (payload.new) {
-            setJob(payload.new);
-          }
-        }
-      )
-      .subscribe();
+    const socket = io('http://localhost:5000');
+
+    socket.on('job-updated', (updatedJob) => {
+      if (updatedJob.id === job.id) {
+        console.log('Job updated:', updatedJob);
+        setJob(updatedJob);
+      }
+    });
 
     fetchQueueStatus();
 
     const interval = setInterval(fetchQueueStatus, 10000);
 
     return () => {
-      supabase.removeChannel(channel);
+      socket.disconnect();
       clearInterval(interval);
     };
   }, [job.id]);
 
   const fetchQueueStatus = async () => {
     try {
-      const { data: queueJobs } = await supabase
-        .from('print_jobs')
-        .select('id, priority, created_at')
-        .eq('machine_id', machine.id)
-        .in('status', ['queued', 'printing'])
-        .order('priority', { ascending: true })
-        .order('created_at', { ascending: true });
+      const response = await fetch(`/api/job/queue/${machine.id}`);
+      const queueJobs = await response.json();
 
       if (queueJobs) {
-        const position = queueJobs.findIndex(j => j.id === job.id);
+        const position = queueJobs.findIndex(j => j._id === job._id || j.id === job.id);
         setQueuePosition(position >= 0 ? position + 1 : null);
         setQueueLength(queueJobs.length);
       }
@@ -64,21 +49,23 @@ export default function JobStatus({ job: initialJob, machine, onPaymentComplete 
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      const { error } = await supabase
-        .from('print_jobs')
-        .update({
+      const paymentId = `PAY_${Date.now()}`;
+      const response = await fetch(`/api/job/${job._id || job.id}/payment`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           payment_status: 'paid',
-          payment_id: `PAY_${Date.now()}`,
-        })
-        .eq('id', job.id);
+          payment_id: paymentId,
+        }),
+      });
 
-      if (error) throw error;
+      if (!response.ok) throw new Error('Payment failed');
 
-      setJob(prev => ({
-        ...prev,
-        payment_status: 'paid',
-        payment_id: `PAY_${Date.now()}`,
-      }));
+      const updatedJob = await response.json();
+
+      setJob(updatedJob);
 
       if (onPaymentComplete) {
         onPaymentComplete();

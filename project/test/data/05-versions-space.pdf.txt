@@ -1,0 +1,57 @@
+
+
+Sujal Mendhe
+7499491745|sujalmendhe420@gmail.com|github.com/sujalmendhe02
+About me
+I am Sujal Dinesh Mendhe, a MERN stack developer and a 4th-year Computer Engineering
+student at SPPU Pune, graduating in 2026. Skilled in React, Node.js, MongoDB, and Express.
+Education
+D.Y. Patil College of EngineeringAkurdi, Pune
+T.E. - Computer Engineering - SGPA:8.41Nov. 2022 – 2026
+Lal Bahadur Shashtri VidyalayBaburwada , Nagpur
+Higher Secondary Education (MSBSHSE) - 86.67March 2022
+Providence School MansarMansar, Nagpur
+MSBSHSE - 88.00March 2020
+Technical Skills
+Languages:C++, JavaScript
+Frontend:React.js, HTML5, CSS3
+Backend:Node.js, Express.js
+Databases:MongoDB, MySQL
+Version Control:Git, GitHub
+Tools Platforms:VS Code, Postman, Render
+Cloud:Cloudinary
+Concepts:REST APIs, OOP, CRUD Operations
+Experience
+Web Developer internPune
+Slash Mark IT Solutions (OPC) Pvt. Ltd.Jan 2025 – Feb 2025
+•
+Full Stack Developer Intern at Slashmark Infotech Pvt.  Ltd., where I enhanced web app functionality and
+responsiveness using the MERN stack (MongoDB, Express.js, React.js, Node.js).
+•
+Contributed to user authentication and IJI components, optimizing code for better performance and responsiveness.
+•
+Built and tested user-friendly interfaces with React and Tailwind CSS, converting Figma designs into responsive
+web pages.
+•
+Gained hands-on experience with tools like Git, Postman, and Vite, strengthening my understanding of real-world
+development workflows.
+•
+Improved practical skills in frontend development, REST API integration, and collaborative project work,
+preparing for professional web development roles..
+Projects
+Virtual Goods Trading Marketplace|MERN Stack, Razorpay, Cloudinary
+•
+Developed a full-stack marketplace for trading in-game weapon skins from PUBG/BGMI, Valorant, and CS:GO.
+•
+Implemented secure payment processing using Razorpay and optimized image uploads with Cloudinary.
+•
+Designed a modern, responsive UI with seamless item listing, browsing, and buying experience.
+Personal Stories Sharing Platform|MERN Stack, Socket.IO
+•
+Built a storytelling platform allowing users to share personal stories with ratings and comments.
+•
+Integrated features like user authentication, search, post rating, and image-based content.
+•
+Enabled real-time chat functionality using Socket.IO to foster community interaction.
+Certifications
+•Infosys Springboard React JS certificate

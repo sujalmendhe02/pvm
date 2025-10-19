@@ -13,17 +13,13 @@ export default function ConnectMachine({ onConnect }) {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/connect-machine`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify({ machineKey, userName }),
-        }
-      );
+      const response = await fetch('/api/machine/connect', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ machineKey, userName }),
+      });
 
       const data = await response.json();
 

@@ -104,27 +104,23 @@ export default function UploadPDF({ machine, user, session, onJobCreated }) {
 
       const pagesCount = calculatePagesCount(pagesToPrint);
 
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-job`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify({
-            machineId: machine.id,
-            userId: user.id,
-            userName: user.name,
-            fileUrl,
-            fileName: file.name,
-            totalPages,
-            pagesToPrint,
-            pagesCount,
-            priority,
-          }),
-        }
-      );
+      const response = await fetch('/api/job', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          machineId: machine._id || machine.id,
+          userId: user._id || user.id,
+          userName: user.name,
+          fileUrl,
+          fileName: file.name,
+          totalPages,
+          pagesToPrint,
+          pagesCount,
+          priority,
+        }),
+      });
 
       const data = await response.json();
 
@@ -134,7 +130,7 @@ export default function UploadPDF({ machine, user, session, onJobCreated }) {
 
       setSuccess(true);
       setTimeout(() => {
-        onJobCreated(data.job);
+        onJobCreated(data);
       }, 1500);
     } catch (err) {
       setError(err.message);
