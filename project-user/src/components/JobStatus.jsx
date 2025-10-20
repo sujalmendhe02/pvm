@@ -43,37 +43,94 @@ export default function JobStatus({ job: initialJob, machine, onPaymentComplete 
     }
   };
 
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
   const handlePayment = async () => {
     setPaymentLoading(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        throw new Error('Failed to load Razorpay SDK');
+      }
 
-      const paymentId = `PAY_${Date.now()}`;
-      const response = await fetch(`/api/job/${job._id || job.id}/payment`, {
-        method: 'PATCH',
+      const orderResponse = await fetch(`/api/payment/create-order/${job._id || job.id}`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          payment_status: 'paid',
-          payment_id: paymentId,
-        }),
       });
 
-      if (!response.ok) throw new Error('Payment failed');
-
-      const updatedJob = await response.json();
-
-      setJob(updatedJob);
-
-      if (onPaymentComplete) {
-        onPaymentComplete();
+      if (!orderResponse.ok) {
+        throw new Error('Failed to create payment order');
       }
+
+      const orderData = await orderResponse.json();
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: 'PrintVend',
+        description: `Print Job - ${job.file_name}`,
+        order_id: orderData.orderId,
+        handler: async function (response) {
+          try {
+            const verifyResponse = await fetch(`/api/payment/verify/${job._id || job.id}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+
+            if (!verifyResponse.ok) {
+              throw new Error('Payment verification failed');
+            }
+
+            const verifyData = await verifyResponse.json();
+            setJob({ ...job, payment_status: 'paid', payment_id: verifyData.job.payment_id });
+
+            if (onPaymentComplete) {
+              onPaymentComplete();
+            }
+          } catch (error) {
+            console.error('Payment verification error:', error);
+            alert('Payment verification failed. Please contact support.');
+          } finally {
+            setPaymentLoading(false);
+          }
+        },
+        prefill: {
+          name: job.userName || '',
+        },
+        theme: {
+          color: '#2563eb',
+        },
+        modal: {
+          ondismiss: function () {
+            setPaymentLoading(false);
+          },
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
     } catch (error) {
       console.error('Payment error:', error);
       alert('Payment failed. Please try again.');
-    } finally {
       setPaymentLoading(false);
     }
   };

@@ -11,16 +11,18 @@ export const createJob = async (req, res) => {
   try {
     const {
       machineId,
+      userId,
       userName,
       fileUrl,
       fileName,
       cloudinaryPublicId,
-      pageCount,
+      totalPages,
       pagesToPrint,
+      pagesCount,
       priority = 2,
     } = req.body;
 
-    if (!machineId || !userName || !fileUrl || !fileName || !cloudinaryPublicId || !pageCount || !pagesToPrint) {
+    if (!machineId || !userName || !fileUrl || !fileName) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
@@ -33,34 +35,42 @@ export const createJob = async (req, res) => {
       return res.status(400).json({ error: 'Machine is offline' });
     }
 
-    const cost = pagesToPrint.length * COST_PER_PAGE * PRIORITY_MULTIPLIER[priority];
+    const actualPagesCount = pagesCount || (pagesToPrint ? pagesToPrint.split(',').length : totalPages);
+    const ratePerPage = machine.ratePerPage || COST_PER_PAGE;
+    const cost = actualPagesCount * ratePerPage * PRIORITY_MULTIPLIER[priority];
+
+    const pagesToPrintArray = pagesToPrint ? pagesToPrint.split(',').map(p => parseInt(p.trim())) : [1];
 
     const job = await PrintJob.create({
       machineId,
       userName,
       fileUrl,
       fileName,
-      cloudinaryPublicId,
-      pageCount,
-      pagesToPrint,
+      cloudinaryPublicId: cloudinaryPublicId || 'local',
+      pageCount: totalPages || 1,
+      pagesToPrint: pagesToPrintArray,
       priority,
-      cost,
+      cost: parseFloat(cost.toFixed(2)),
       status: 'queued',
+      paymentStatus: 'pending',
     });
 
     res.json({
-      job: {
-        id: job._id,
-        machineId: job.machineId,
-        userName: job.userName,
-        fileName: job.fileName,
-        pageCount: job.pageCount,
-        pagesToPrint: job.pagesToPrint,
-        priority: job.priority,
-        status: job.status,
-        cost: job.cost,
-        createdAt: job.createdAt,
-      },
+      _id: job._id,
+      id: job._id,
+      machineId: job.machineId,
+      userName: job.userName,
+      user_name: job.userName,
+      file_name: job.fileName,
+      fileName: job.fileName,
+      pageCount: job.pageCount,
+      pages_to_print: pagesToPrint,
+      pagesToPrint: job.pagesToPrint,
+      priority: job.priority,
+      status: job.status,
+      payment_status: job.paymentStatus,
+      cost: job.cost,
+      createdAt: job.createdAt,
     });
   } catch (error) {
     console.error('Create job error:', error);

@@ -8,6 +8,7 @@ import {
 
 const router = express.Router();
 
+router.post('/', createJob);
 router.post('/create', createJob);
 router.get('/status/:jobId', getJobStatus);
 router.get('/queue/:machineId', getMachineQueue);

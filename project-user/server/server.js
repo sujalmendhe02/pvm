@@ -7,6 +7,7 @@ import { setupSocketIO } from './socket/index.js';
 import machineRoutes from './routes/machine.js';
 import jobRoutes from './routes/job.js';
 import uploadRoutes from './routes/upload.js';
+import paymentRoutes from './routes/payment.js';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/machine', machineRoutes);
 app.use('/api/job', jobRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/payment', paymentRoutes);
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });

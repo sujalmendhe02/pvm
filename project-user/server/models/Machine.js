@@ -19,6 +19,10 @@ const machineSchema = new mongoose.Schema({
     enum: ['online', 'offline', 'printing'],
     default: 'offline',
   },
+  ratePerPage: {
+    type: Number,
+    default: 2,
+  },
   socketId: {
     type: String,
     default: null,

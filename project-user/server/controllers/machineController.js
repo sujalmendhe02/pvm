@@ -41,13 +41,14 @@ export const registerMachine = async (req, res) => {
 
 export const connectToMachine = async (req, res) => {
   try {
-    const { machineId, userName } = req.body;
+    const { machineId, machineKey, userName } = req.body;
+    const key = machineKey || machineId;
 
-    if (!machineId || !userName) {
+    if (!key || !userName) {
       return res.status(400).json({ error: 'Machine ID and user name are required' });
     }
 
-    const machine = await Machine.findOne({ machineId });
+    const machine = await Machine.findOne({ machineId: key });
 
     if (!machine) {
       return res.status(404).json({ error: 'Machine not found' });
@@ -60,10 +61,21 @@ export const connectToMachine = async (req, res) => {
     res.json({
       success: true,
       machine: {
+        _id: machine._id,
+        id: machine._id,
         machineId: machine.machineId,
         name: machine.name,
         location: machine.location,
         status: machine.status,
+        rate_per_page: machine.ratePerPage || 2,
+      },
+      user: {
+        _id: key + '_' + Date.now(),
+        id: key + '_' + Date.now(),
+        name: userName,
+      },
+      session: {
+        id: Date.now().toString(),
       },
     });
   } catch (error) {
