@@ -11,6 +11,7 @@ export default function UploadPDF({ machine, user, session, onJobCreated }) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const fileInputRef = useRef(null);
+  const API_BASE = import.meta.env.VITE_API_BACKEND_URL;
 
   const handleFileSelect = async (e) => {
     const selectedFile = e.target.files[0];
@@ -85,26 +86,36 @@ export default function UploadPDF({ machine, user, session, onJobCreated }) {
 
     try {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('pdf', file);
 
-      const uploadResponse = await fetch('/api/upload', {
+      const uploadResponse = await fetch(`${API_BASE}/api/upload`, {
         method: 'POST',
         body: formData,
       });
 
       let fileUrl;
-      if (!uploadResponse.ok) {
-        fileUrl = `data:application/pdf;base64,${btoa(
-          String.fromCharCode(...new Uint8Array(await file.arrayBuffer()))
-        )}`;
-      } else {
+
+      if (uploadResponse.ok) {
         const uploadData = await uploadResponse.json();
-        fileUrl = uploadData.url;
+        fileUrl = uploadData.url || '';
+      } else {
+        const arrayBuffer = await file.arrayBuffer();
+        fileUrl = `data:application/pdf;base64,${btoa(
+          String.fromCharCode(...new Uint8Array(arrayBuffer))
+        )}`;
       }
+
+      // Validate
+      if (!fileUrl) {
+        setError('Failed to get file URL. Upload aborted.');
+        setUploading(false);
+        return;
+      }
+
 
       const pagesCount = calculatePagesCount(pagesToPrint);
 
-      const response = await fetch('/api/job', {
+      const response = await fetch(`${API_BASE}/api/job`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -258,11 +269,10 @@ export default function UploadPDF({ machine, user, session, onJobCreated }) {
                     <button
                       type="button"
                       onClick={() => setPriority(2)}
-                      className={`p-4 rounded-lg border-2 transition ${
-                        priority === 2
+                      className={`p-4 rounded-lg border-2 transition ${priority === 2
                           ? 'border-blue-500 bg-blue-50 text-blue-700'
                           : 'border-gray-300 hover:border-gray-400'
-                      }`}
+                        }`}
                     >
                       <div className="font-semibold">Normal</div>
                       <div className="text-sm">Standard Queue</div>
@@ -270,11 +280,10 @@ export default function UploadPDF({ machine, user, session, onJobCreated }) {
                     <button
                       type="button"
                       onClick={() => setPriority(1)}
-                      className={`p-4 rounded-lg border-2 transition ${
-                        priority === 1
+                      className={`p-4 rounded-lg border-2 transition ${priority === 1
                           ? 'border-orange-500 bg-orange-50 text-orange-700'
                           : 'border-gray-300 hover:border-gray-400'
-                      }`}
+                        }`}
                     >
                       <div className="font-semibold">Urgent</div>
                       <div className="text-sm">+50% Cost</div>

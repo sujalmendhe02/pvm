@@ -1,10 +1,12 @@
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 import PrintJob from '../models/PrintJob.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const razorpayInstance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || 'rzp_test_VTeHEBn3aNjFQV',
-  key_secret: process.env.RAZORPAY_KEY_SECRET  || 'XgWhkUAIqIkH6btlq6UTb7ak',
+  key_id: process.env.RAZORPAY_KEY_ID ,
+  key_secret: process.env.RAZORPAY_KEY_SECRET ,
 });
 
 export const createPaymentOrder = async (req, res) => {
@@ -39,6 +41,7 @@ export const createPaymentOrder = async (req, res) => {
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
+      key_id: process.env.RAZORPAY_KEY_ID,
       jobId: job._id,
     });
   } catch (error) {

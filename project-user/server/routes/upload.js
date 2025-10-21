@@ -4,6 +4,7 @@ import { uploadPDF } from '../controllers/uploadController.js';
 
 const router = express.Router();
 
-router.post('/pdf', upload.single('pdf'), uploadPDF);
+router.post('/', upload.single('pdf'), uploadPDF);
+
 
 export default router;

@@ -1,6 +1,8 @@
 import cloudinary from '../config/cloudinary.js';
 import pdfParse from 'pdf-parse';
 import { Readable } from 'stream';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const uploadPDF = async (req, res) => {
   try {
