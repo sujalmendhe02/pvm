@@ -97,7 +97,7 @@ export default function UploadPDF({ machine, user, session, onJobCreated }) {
 
       if (uploadResponse.ok) {
         const uploadData = await uploadResponse.json();
-        fileUrl = uploadData.url || '';
+        fileUrl = uploadData.url || uploadData.fileUrl || uploadData.secure_url;
       } else {
         const arrayBuffer = await file.arrayBuffer();
         fileUrl = `data:application/pdf;base64,${btoa(
@@ -106,11 +106,11 @@ export default function UploadPDF({ machine, user, session, onJobCreated }) {
       }
 
       // Validate
-      if (!fileUrl) {
-        setError('Failed to get file URL. Upload aborted.');
-        setUploading(false);
-        return;
-      }
+      // if (!fileUrl) {
+      //   setError('Failed to get file URL. Upload aborted.');
+      //   setUploading(false);
+      //   return;
+      // }
 
 
       const pagesCount = calculatePagesCount(pagesToPrint);

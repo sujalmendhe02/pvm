@@ -25,11 +25,12 @@ export const uploadPDF = async (req, res) => {
         }
 
         res.json({
-          fileUrl: result.secure_url,
+          url: result.secure_url,
           publicId: result.public_id,
           pageCount,
           fileName: req.file.originalname,
         });
+        
       }
     );
 
