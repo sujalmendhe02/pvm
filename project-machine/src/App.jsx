@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import './App.css'
+import MachineDashboard from "./pages/MachineDashboard";
 
 function App() {
   return (
     <>
+      <MachineDashboard />;
     </>
   )
 }
