@@ -8,10 +8,16 @@ import {
 
 const router = express.Router();
 
-router.post('/', createJob);
+console.log("jobRoutes file loaded ✔️");
+
+
+//router.post('/', createJob);
 router.post('/create', createJob);
 router.get('/status/:jobId', getJobStatus);
 router.get('/queue/:machineId', getMachineQueue);
 router.put('/update/:jobId', updateJobStatus);
+
+console.log("Available job routes:", router.stack.map(r => r.route?.path));
+
 
 export default router;

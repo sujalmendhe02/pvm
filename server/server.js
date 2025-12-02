@@ -16,7 +16,7 @@ const app = express();
 const server = createServer(app);
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: [process.env.CLIENT_URL, 'http://localhost:5173', 'http://localhost:5174'],
   credentials: true,
 }));
 
@@ -35,6 +35,8 @@ app.get('/health', (req, res) => {
 setupSocketIO(server);
 
 const PORT = process.env.PORT || 5000;
+
+
 
 const startServer = async () => {
   try {
@@ -56,5 +58,7 @@ const startServer = async () => {
     console.error("❌ Cloudinary connection failed:", error.message);
   }
 })();
+
+console.log("Job Routes Loaded:", app._router.stack.filter(r => r.route));
 
 startServer();

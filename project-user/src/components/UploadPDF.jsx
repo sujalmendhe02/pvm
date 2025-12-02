@@ -114,8 +114,10 @@ export default function UploadPDF({ machine, user, session, onJobCreated }) {
 
 
       const pagesCount = calculatePagesCount(pagesToPrint);
+      console.log('API_BASE:', API_BASE);
 
-      const response = await fetch(`${API_BASE}/api/job`, {
+
+      const response = await fetch(`${API_BASE}/api/job/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,0 +1,1345 @@
+
+
+SAVITRIBAI PHULE PUNE UNIVERSITY  
+ 
+A PROJECT REPORT ON  
+ 
+An Automated Symptom-to-Care Framework for Predictive 
+Diagnosis and Health Recommendation 
+ 
+SUBMITTED TOWARDS 
+THE 
+PARTIAL FULFILLMENT OF THE REQUIREMENTS OF  
+ 
+BACHELOR OF ENGINEERING (Computer Engineering) 
+BY 
+ 
+Aryan Jitendra Meher      Exam No: BECO2526B035 
+Huzaifa Shakil Khan       Exam No: BECO2526B032 
+Sujal Dinesh Mendhe      Exam No: BECO2526B026 
+Swapnil Navnath Ide       Exam No: BECO2526B003 
+ 
+Under The Guidance of 
+Prof. Dhanashree Phalke 
+ 
+ 
+ 
+ 
+ 
+ACADEMIC YEAR 2025-2026 Sem – I 
+ 
+DEPARTMENT OF COMPUTER ENGINEERING 
+D.Y. Patil College of Engineering, Akurdi, Pune-44 
+
+ 
+D.Y. Patil College of Engineering, Akurdi, Pune-44 
+DEPARTMENT OF COMPUTER ENGINEERING 
+ 
+CERTIFICATE 
+ 
+This is to certify that the Project Entitled 
+An Automated Symptom-to-Care Framework for Predictive 
+Diagnosis and Health Recommendation 
+Submitted by 
+Aryan Jitendra Meher      Exam No: BECO2526B035 
+Huzaifa Shakil Khan       Exam No: BECO2526B032 
+Sujal Dinesh Mendhe      Exam No: BECO2526B026 
+Swapnil Navnath Ide       Exam No: BECO2526B003 
+is a bonafide work carried out by Students under the supervision of Prof. Dhanashree Phalke 
+and it is submitted towards the partial fulfillment of the requirement of Bachelor of Engineering 
+(Computer Engineering). 
+ 
+Prof. Dhanashree Phalke                                                                         Prof. Madhuri Potey 
+        Internal Guide                                                                                            H. O. D 
+Dept. of Computer Engg.                                                                        Dept. of Computer Engg.        
+ 
+ 
+Principal 
+D.Y. Patil College of Engineering, Akurdi, Pune-44 
+ 
+ 
+ 
+ 
+ 
+Signature of Internal Examiner                                                  Signature of External Examiner 
+
+ 
+PROJECT APPROVAL SHEET 
+ 
+An Automated Symptom-to-Care Framework for Predictive Diagnosis and Health 
+Recommendation 
+ 
+Is successfully completed by 
+ 
+Aryan Jitendra Meher      Exam No: BECO2526B035 
+Huzaifa Shakil Khan       Exam No: BECO2526B032 
+Sujal Dinesh Mendhe      Exam No: BECO2526B026 
+Swapnil Navnath Ide       Exam No: BECO2526B003 
+ 
+at 
+ 
+DEPARTMENT OF COMPUTER ENGINEERING 
+D.Y. PATIL COLLEGE OF ENGINEERING, AKURDI, PUNE-44 
+SAVITRIBAI PHULE PUNE UNIVERSITY, 
+PUNE ACADEMIC YEAR 2025-2026 Sem – I 
+ 
+ 
+Prof. Dhanashree Phalke                                                                        Prof. Madhuri Potey 
+        Internal Guide                                                                                             H. O. D 
+Dept. Computer of Engg.                                                                     Dept. Computer of Engg.  
+ 
+ 
+ 
+      
+ 
+ 
+ 
+ 
+ 
+ 
+
+Abstract 
+ 
+In today’s data-driven world, the healthcare sector faces a major challenge in managing and 
+interpreting  the  massive  volume  of  patient  data  effectively.  Doctors  and  healthcare 
+professionals often struggle to accurately identify diseases in their early stages. This difficulty 
+arises from the complexity of symptoms and the increasing reliance on manual diagnosis. To 
+tackle this problem, our project, An Automated Symptom-to-Care Framework for Predictive 
+Diagnosis and Health Recommendation, uses machine learning algorithms to predict diseases 
+based on symptoms input by users. It also provides health guidance. 
+The main goal of this system is to enable early disease detection, improve diagnostic efficiency, 
+and reduce the workload of healthcare professionals. By combining algorithms like Decision 
+Tree, Random Forest, and Naïve Bayes, the system analyses symptoms, compares them with 
+existing medical data, and predicts the most likely disease. This predictive approach not only 
+helps with timely diagnosis but also improves healthcare accessibility. It allows users to self-
+assess potential conditions through a simple web-based interface. 
+The expected result is an intelligent, cost-effective, and user-friendly platform that delivers 
+reliable disease predictions and personalized health recommendations, including precautionary 
+measures, medication guidance, and lifestyle suggestions. 
+This  project  stands  out  because  of  its  integrated  "Symptom-to-Care"  framework,  which 
+connects disease prediction with actionable healthcare advice. Unlike traditional diagnostic 
+systems, our model not only predicts possible diseases but also gives users tailored medical 
+insights. This makes healthcare more proactive, accessible, and informed by data. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Acknowledgements 
+ 
+It gives us great pleasure in presenting the preliminary project report on ‘An  Automated 
+Symptom-to-Care Framework for Predictive Diagnosis and Health Recommendation’. 
+ 
+I would like to take this opportunity to thank my internal guide Prof. Dhanashree Phalke for 
+giving me all the help and guidance I needed. I am really grateful to them for their kind support. 
+Their valuable suggestions were very helpful. 
+ 
+I am also grateful to Prof. Madhuri Potey, Head of Computer Engineering Department, D. Y. 
+Patil College of Engineering, Akurdi for her indispensable support, suggestions. 
+ 
+ 
+    Aryan Jitendra Meher      Exam No: BECO2526B035 
+Huzaifa Shakil Khan       Exam No: BECO2526B032 
+Sujal Dinesh Mendhe      Exam No: BECO2526B026 
+Swapnil Navnath Ide       Exam No: BECO2526B003 
+                                                                                              (B.E. Computer Engg.) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Contents 
+ 
+2 Synopsis 
+   2.1  Project Title ................................................................................................... 1 
+   2.2  Project Option ............................................................................................... 1 
+   2.3  Internal Guide ............................................................................................... 1 
+   2.4  Sponsorship and External Guide ................................................................... 1 
+   2.5  Technical ....................................................................................................... 1 
+   2.6  Problem Statement ........................................................................................ 2 
+   2.7  Abstract ......................................................................................................... 2 
+   2.8  Goals and Objectives .................................................................................... 2 
+   2.9  Relevant Mathematics Associated with the Project ...................................... 3 
+   2.10 Name of Conferences/Journals where paper can be published .................... 4 
+   2.11 Review of Conferences/Journals Papers supporting project idea ................ 4 
+   2.12 Plan of project execution ............................................................................. 6 
+3 Technical Keyword 
+   3.1  Area of project............................................................................................... 8 
+   3.2  Technical Keywords ...................................................................................... 8 
+4 Introduction 
+   4.1  Project Idea ................................................................................................... 9 
+   4.2  Motivation of the project .............................................................................. 9 
+   4.3  Literature Survey .......................................................................................... 9 
+5 Problem Definition and Scope 
+   5.1  Problem Statement ........................................................................................ 12 
+        5.1.1  Goals and Objectives ............................................................................ 12 
+       5. 1.2  Statement of Scope ............................................................................... 13 
+   5.2  Major Constraints.......................................................................................... 13 
+   5.3  Methodologies of problem solving and efficiency issues ............................. 13 
+   5.4  Outcome ........................................................................................................ 14 
+   5.5  Applications .................................................................................................. 14 
+
+   5.6  Hardware resources required ........................................................................ 15 
+   5.7  Software resources required .......................................................................... 15 
+   5.8  Testing Strategy ............................................................................................. 15 
+6 Design Analysis 
+   6.1  Use Case Diagram......................................................................................... 17 
+   6.2  Architecture Diagram .................................................................................... 17 
+   6.3  State Transition Diagram .............................................................................. 18 
+   6.4  Class Diagram ............................................................................................... 19 
+7 Conclusion and Future Scope 
+   7.1  Conclusion .................................................................................................... 20 
+   7.2  Future Scope ................................................................................................. 20 
+ 
+Appendix References ............................................................................................ 21 
+Appendix Information of Project Group Members ........................................... 22 
+     
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+1                                                                            D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Synopsis 
+ 
+2.1 Project Title 
+An Automated  Symptom-to-Care  Framework  for  Predictive  Diagnosis  and  Health 
+Recommendation. 
+ 
+2.2 Project Option 
+ Internal Project. 
+ 
+2.3 Internal Guide 
+ Prof. Dhanashree Phalke 
+ 
+2.4 External Guide 
+ 
+ 
+2.5 Technical Keywords (As per ACM Keywords) 
+1. I. Computing Methodologies 
+a) I.2 Artificial Intelligence  
+i. I.2.6 Learning 
+A. Machine Learning 
+B. Inductive Learning 
+C. Classification and regression 
+D. Supervised learning 
+2. J. Computer Applications 
+a) J. 3 Life and Medical Sciences 
+i. Health informatics 
+ii. Medical Information Systems 
+iii. Disease diagnosis and prediction 
+3. H. Information Systems 
+a) H. 2 Database Management 
+i. Data Mining 
+ii. Knowledge 
+iii. Data preprocessing and feature extraction 
+4. K.4 Computers and Society 
+a) K.4.1 Public Policy Issues 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+2                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+i. Computer-assisted healthcare 
+ii. Social and ethical issues in AI applications 
+ 
+2.6 Problem Statement 
+ In today’s healthcare environment, the large amount of medical data generated daily is 
+often not used effectively because there are no smart systems to interpret it. Patients frequently 
+do not notice or act on early symptoms of diseases. This leads to delayed diagnoses, higher 
+treatment  costs,  and  lower  recovery  rates.  Meanwhile,  doctors  are  dealing  with  heavier 
+workloads, making it hard to provide timely and accurate diagnoses for every case. Current 
+healthcare diagnostic systems mainly rely on manual evaluations and lack automation or 
+predictive abilities. There is an urgent need for an efficient, easy-to-use, and data-driven system 
+that can analyse the symptoms users input, predict possible diseases with high accuracy, and 
+offer personalized health recommendations. This project aims to tackle these issues by creating 
+a  machine  learning-based  diagnosis  framework  that  uses  algorithms  like  Decision  Tree, 
+Random Forest, and Naïve Bayes to pinpoint likely diseases and guide users with practical 
+healthcare advice. This will support both patients and healthcare professionals in making early 
+and informed decisions. 
+ 
+2.7 Abstract 
+The  healthcare  industry  faces  increasing  challenges  in  diagnosing  diseases  early 
+because of the large amount of patient data and the complex patterns of symptoms. This project, 
+An  Automated  Symptom-to-Care  Framework  for  Predictive  Diagnosis  and  Health 
+Recommendation,  uses  machine  learning  to  tackle  this  problem.  Users  can  enter  their 
+symptoms through a web-based interface, and the system predicts potential diseases using 
+Decision Tree, Random Forest, and Naïve Bayes algorithms. If at least two algorithms identify 
+the same disease, the result is seen as highly reliable. In addition to making predictions, the 
+system offers users detailed disease information, precautionary measures, medication advice, 
+and lifestyle tips. The main goal is to enable early detection, lessen the burden on doctors, and 
+improve access to basic healthcare insights. This method improves diagnostic efficiency and 
+gives users a better understanding of their health based on data. The result is a cost-effective, 
+user-friendly  health  advisory  system.  It  connects  symptom  analysis  with  practical  care 
+recommendations. The  project  shows  innovation  by  combining  predictive  diagnosis  with 
+personalized health guidance in one integrated framework. 
+ 
+2.8 Goals and Objectives 
+ Goals and Objectives of our project are: 
+• Automated  Disease  Prediction: To  design  and  implement  a  system  that  predicts 
+possible diseases based on symptoms entered by the user using machine learning 
+algorithms such as Decision Tree, Random Forest, and Naïve Bayes. 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+3                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+• Early Diagnosis Support: To enable early identification of diseases, helping users take 
+timely preventive or corrective action before the condition worsens. 
+• Healthcare Assistance: To assist doctors and healthcare professionals by reducing 
+diagnostic workload through an AI-driven preliminary analysis system. 
+• Comprehensive  Health  Guidance: To  provide  users  with  actionable  insights — 
+including disease details, precautionary measures, medication suggestions, diet, and 
+workout plans — after prediction. 
+• User-Friendly Web Interface: To develop a web-based platform that ensures easy 
+access, simple navigation, and usability for both medical professionals and general 
+users. 
+• Data Utilization and Learning: To leverage medical datasets effectively for model 
+training and continuously improve system performance with more data. 
+ 
+2.9 Relevant mathematics associated with the Project 
+ Relevant mathematics associated with out project is: 
+• Decision Tree: Entropy and Information Gain 
+A Decision Tree uses Information Theory concepts to decide which feature best splits 
+the dataset at each step. 
+1. Entropy: This is a measure of impurity in a dataset. An entropy of 0 means all 
+samples belong to one class (pure), while an entropy of 1 means the samples are 
+equally divided among classes (most impure). The formula for entropy is: 
+ 
+2. Information Gain: This is the metric used to decide the best feature for a split. 
+It measures the reduction in entropy after a dataset is split on a particular feature. 
+The algorithm calculates the information gain for every feature and chooses the 
+one with the highest value. The formula is: 
+• Random Forest: Ensemble Methods 
+A Random Forest is an ensemble of Decision Trees that combines multiple trees to 
+improve accuracy and reduce overfitting. 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+4                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+1. Bootstrap Sampling: Multiple new datasets are created by sampling randomly 
+with replacement from the original dataset. This means some data points may 
+appear multiple times in a new dataset, while others may not appear at all. 
+2. Voting Mechanism: Each Decision Tree predicts a class, and the final prediction 
+is the majority vote among all trees. 
+This process of averaging the predictions from many different models helps to reduce 
+the overall variance and makes the Random Forest more accurate and stable than a 
+single decision tree. 
+• Naïve Bayes Classifier 
+The "naïve" part is a strong assumption that all features (symptoms) are independent of 
+one another. This simplifies the calculation significantly. The model calculates the 
+probability of a patient having each possible disease given their set of symptoms and 
+selects the disease with the highest probability. The formula to make a prediction is: 
+ 
+2.10 Name of Conferences/Journals where papers can be published 
+• IEEE International Conference on Healthcare Informatics (ICHI) 
+Focus: AI and data analytics in healthcare, predictive systems, and clinical decision 
+support. 
+Organizer: IEEE Computer Society. 
+• ACM Conference on Health, Inference, and Learning (CHIL) 
+Focus: Machine   learning   applications   in   healthcare   and   medicine. 
+Organizer: ACM SIGAI, SIGKDD, and SIGHealth. 
+• IEEE International Conference on Machine Learning and Applications (ICMLA) 
+Focus: Machine learning theory and applications, including medical diagnosis systems. 
+• International  Conference  on  Emerging  Trends  in  Engineering  &  Technology 
+(ICETET-SIP) 
+Focus: Data-driven systems, predictive analytics, and health informatics. 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+5                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+2.11 Review of Conference/Journal Papers supporting Project idea 
+• S. Uddin et al., “Comparing Different Supervised Machine Learning Algorithms 
+for Disease Prediction,” BMC  Medical  Informatics  and  Decision  Making (2019). 
+This large comparative study surveys many supervised ML approaches across medical 
+datasets and reports relative performance (noting strengths of ensemble methods like 
+Random Forest). It provides empirical guidance on algorithm selection and validation 
+strategies for disease prediction.  
+Relevance: Supports your choice of comparing Decision Tree, Random Forest and 
+Naïve Bayes and highlights evaluation practices. 
+• M. M. Ahsan et al., “Machine-Learning-Based Disease Diagnosis” (review), 
+PMC/MDPI-like review (2022). 
+A systematic review and bibliometric analysis of ML methods used for early disease 
+diagnosis; discusses common datasets, preprocessing, feature selection and model 
+generalization issues. 
+Relevance: Useful for literature-backed best practices (preprocessing, feature 
+engineering, handling class imbalance). 
+• P. S. Kohli & S. Arora, “Application of Machine Learning in Disease Prediction,” 
+ICCCA/related proceedings (2018). 
+Demonstrates applications of various ML models (SVM, Adaboost, etc.) on disease 
+datasets and reports how model choice impacts accuracy across conditions.  
+Relevance: Reinforces applicability of ML for automated diagnostic support and 
+motivates ensemble/algorithm comparisons. 
+• S. Balasubramanian & B. Subramanian, “Symptom-Based Disease Prediction 
+Using K-Means” (conference/short paper). 
+Applies clustering (K-Means) to group symptom patterns and then classifies clusters 
+into disease labels; emphasizes importance of feature selection and symptom 
+encoding. 
+Relevance: Informs alternative preprocessing/unsupervised steps (clustering) you 
+might use before classification. 
+• “Decision Tree Based Health Prediction System” (IJRASET / academia copy). 
+Presents a web-based decision tree classifier for symptom→disease mapping, stresses 
+interpretability   of   Decision   Trees   for   clinical   explainability. 
+Relevance: Supports using Decision Trees where explainability is important for user 
+trust. 
+• “Disease Prediction and Treatment/Hospital Recommendation Using ML” 
+(IJRASET / ResearchGate variants). 
+Explores combined prediction + recommendation pipelines (disease prediction 
+followed by doctor/hospital/treatment suggestion) and documents how 
+recommendation modules add user value. 
+Relevance: Direct precedent for your “Symptom-to-Care” idea (prediction + 
+actionable guidance). 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+6                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+• “A Machine Learning Model for Early Prediction of Multiple Diseases to Cure 
+Lives,” Turkish  Journal   of  Computer  and  Mathematics  Education (2021). 
+Describes a multi-disease prediction approach using ensemble/supervised techniques 
+and reports improvements in early detection when multiple algorithms are combined. 
+Relevance: Justifies  your  ensemble  strategy  (confirming  predictions  when  ≥2 
+algorithms agree). 
+• “Identification and Prediction of Chronic Diseases Using Machine Learning” 
+(PMC/NCBI article, 2022). 
+Focuses on chronic-disease prediction pipelines, dataset curation, and feature 
+importance analyses; includes performance comparisons and discussion of clinical 
+applicability. 
+Relevance: Guides you on handling chronic disease prediction specifics (imbalanced 
+labels, longitudinal data). 
+• KAUSHIL268 Kaggle Dataset: “Disease Prediction Using Machine Learning” 
+(dataset & kernels). 
+A publicly used dataset (132 symptom features, 42 diseases) and many community 
+kernels that show practical preprocessing, encoding and baseline model 
+implementations. 
+Relevance: Practical data source and baseline code examples you can reuse or adapt 
+for training/testing. 
+• Survey: “Machine Learning Approaches for Disease Prediction — A Review” 
+(ResearchGate / 2022). 
+Reviews diverse ML models across disease domains, discusses evaluation metrics, 
+common pitfalls (overfitting, lack of external validation) and suggests ensemble 
+approaches for robustness.  
+Relevance: Helpful checklist for rigorous evaluation (cross-validation, external test 
+sets, reporting metrics). 
+ 
+2.12 Plan of Project Execution 
+• Phase 1: Requirement Analysis and Research 
+This phase focuses on defining the system requirements, identifying key functionalities, 
+and finalizing the dataset and algorithms to be used. The main tasks include preparing 
+the Software Requirements Specification (SRS), selecting the appropriate machine 
+learning algorithms such as Decision Tree, Random Forest, and Naïve Bayes, and 
+outlining the overall system workflow. The expected outcome of this phase is a clear 
+understanding of the project scope, along with finalized requirements and architecture. 
+• Phase 2: Data Collection and Preprocessing 
+The  dataset  for  disease  prediction  will  be  gathered  from  trustworthy  sources  like 
+Kaggle. Preprocessing steps will involve cleaning the data, managing missing values, 
+encoding  categorical  variables,  and  normalizing  features.  We  will  also  conduct 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+7                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+exploratory data analysis to understand the link between symptoms and diseases. By 
+the  end  of  this  phase,  we  will  have  a  structured  dataset  that  is  ready  for  model 
+development. 
+• Phase 3: Model Development and Training 
+In this phase, the machine learning models will be implemented and trained with the 
+pre-processed dataset. The selected algorithms, Decision Tree, Random Forest, and 
+Naïve Bayes, will be tested and evaluated using metrics like accuracy, precision, recall, 
+and F1-score. Hyperparameter tuning will be applied to improve model performance. 
+The final models will be saved for integration. This phase results in fully trained models 
+that can predict diseases based on user symptoms. 
+• Phase 4: Web Application Development and Integration 
+A  web-based  interface  will  be  created  for  users  to  enter  their  symptoms  and  get 
+predictions. The frontend will focus on simplicity and ease of use. The backend will be 
+built in JavaScript using React.js. The trained models will be integrated to process the 
+input and generate results, showing the predicted disease along with related health 
+advice like precautions, medications, and diet plans. The result will be a functional, 
+user-friendly web application that links prediction with practical care guidance. 
+• Phase 5: Testing, Evaluation, and Documentation 
+The final phase involves testing the entire system for accuracy, performance, and 
+reliability. We will conduct functional, unit, and user-level tests to ensure all modules 
+work properly. We will verify the system’s accuracy using test data and collect feedback 
+for  improvements.  After  validation,  we  will  complete  the  final  documentation, 
+including the project report, user manual, and presentation. This phase ends with a fully 
+tested, documented, and ready-to-use disease prediction and recommendation system. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+8                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Technical Keywords 
+ 
+3.1 Area of Project 
+ The focus of this project is on Artificial Intelligence (AI) and Machine Learning (ML), 
+particularly in Healthcare Informatics. It aims to use predictive analytics and classification 
+methods on medical data to diagnose diseases early and provide personalized health advice. 
+The project combines Data Science, Web Application Development, and Health Technology to 
+build an intelligent system that puts users first. 
+ 
+3.2 Technical Keywords 
+1. I. Computing Methodologies 
+a) I.2 Artificial Intelligence  
+i. I.2.6 Learning 
+A. Machine Learning 
+B. Inductive Learning 
+C. Classification and regression 
+D. Supervised learning 
+2. J. Computer Applications 
+a) J. 3 Life and Medical Sciences 
+i. Health informatics 
+ii. Medical Information Systems 
+iii. Disease diagnosis and prediction 
+3. H. Information Systems 
+a) H. 2 Database Management 
+i. Data Mining 
+ii. Knowledge 
+iii. Data preprocessing and feature extraction 
+4. K.4 Computers and Society 
+a) K.4.1 Public Policy Issues 
+i. Computer-assisted healthcare 
+ii. Social and ethical issues in AI applications 
+ 
+ 
+ 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+9                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Introduction 
+ 
+4.1 Project Idea 
+ The goal of this project is to create a smart system that can predict possible diseases 
+based on the symptoms provided by the user and offer relevant health recommendations. By 
+using machine learning algorithms like Decision Tree, Random Forest, and Naïve Bayes, the 
+system analyses medical data to find patterns and make predictions. This helps users get quick 
+and reliable insights into their health without needing an immediate medical consultation. 
+The  project  goes  further  than  just  prediction.  It  also  offers  extra  guidance,  including 
+precautionary steps, medication suggestions, and diet advice. Built as a web application, it aims 
+to make healthcare more accessible, support the early detection of diseases, and help both 
+patients  and  doctors  make  informed  decisions  through  a  user-friendly  and  data-driven 
+approach. 
+ 
+4.2 Motivation of the Project 
+The motivation for this project comes from the growing need for accessible and smart 
+healthcare solutions. In today’s fast-paced world, people often overlook or misunderstand early 
+symptoms because of a lack of awareness or limited access to medical facilities. This delay in 
+diagnosis can result in serious health issues, higher treatment costs, and lower chances of 
+recovery. Meanwhile, doctors face increasing workloads, making it hard to provide timely and 
+personalized diagnoses for every patient. 
+By incorporating machine learning into healthcare, this project aims to help both patients and 
+medical professionals identify diseases early and efficiently. The system uses data-driven 
+algorithms to predict potential diseases based on user symptoms and offers preventive health 
+advice. This not only empowers individuals to take charge of their health but also helps lessen 
+the strain on healthcare systems, leading to quicker diagnoses and improved decision-making. 
+  
+4.3 Literature Survey 
+Sr.
+No 
+Title and 
+Authors 
+Conference
+/Journal 
+and Year 
+Topic 
+Reviewed/Algorith
+m or Methodology 
+Used 
+Advantages 
+Disadvanta
+ges 
+1 Disease 
+Prediction  using 
+Machine Learning 
+Algorithms – 
+Sneha 
+Internationa
+l 
+Conference 
+for 
+Emerging 
+Technology 
+Compared    ML 
+algorithms    for 
+disease  prediction 
+using  classification 
+techniques. 
+Demonstrate
+d   efficient 
+disease 
+prediction 
+using  data-
+Limited 
+dataset  and 
+lacked  real-
+time 
+implementat
+ion. 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+10                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Grampurohit, 
+Chetan Sagarnal 
+(INCET), 
+2020 
+driven 
+approaches. 
+2 Disease 
+Prediction  using 
+Machine Learning 
+– Chauhan R. H., 
+Naik   D.   N., 
+Halpati  R.  A., 
+Patel   S.   J., 
+Prajapati A. D. 
+IRJET,  Vol. 
+7(5), 2020 
+Used   supervised 
+ML  algorithms  on 
+medical  data  for 
+disease prediction. 
+Showed 
+feasibility of 
+using   ML 
+for 
+healthcare 
+diagnosis. 
+Accuracy 
+reduced  due 
+to   limited 
+data 
+preprocessin
+g. 
+3 Disease 
+Prediction  using 
+Machine Learning 
+– Pingale  K., 
+Surwase     S., 
+Kulkarni    V., 
+Sarage  S.,  Karve 
+A. 
+IRJET,  Vol. 
+6(12), 2019 
+Implemented 
+Decision  Tree  and 
+Random    Forest 
+algorithms   using 
+Python. 
+Achieved 
+good 
+accuracy 
+and   user-
+friendly 
+interface. 
+System 
+limited   to 
+selected 
+diseases;  no 
+recommenda
+tion module. 
+4 Disease 
+Prediction in Data 
+Mining 
+Techniques 
+IJCAIT, 
+2013 
+Used  data  mining 
+and  classification 
+techniques    for 
+disease 
+identification. 
+Highlighted 
+role     of 
+pattern 
+extraction in 
+healthcare 
+datasets. 
+Outdated 
+dataset; 
+lacked 
+integration 
+with modern 
+ML tools. 
+5 Disease 
+Prediction System 
+using  SVM  and 
+Multi-linear 
+Regression 
+IJIRCST, 
+2020 
+Combined  Support 
+Vector Machine and 
+regression models. 
+Achieved 
+improved 
+accuracy 
+and 
+computation
+al efficiency. 
+Model 
+sensitive  to 
+high-
+dimensional 
+data; 
+required 
+feature 
+tuning. 
+6 Disease 
+Prediction    by 
+Machine Learning 
+from  Healthcare 
+Communities – 
+Jadhav  S.,  Kasar 
+R., Lade N., Patil 
+M., Kolte S. 
+IJSRST, 
+2019 
+Compared 
+classification 
+algorithms   using 
+real    healthcare 
+community data. 
+Proved  that 
+ML  models 
+outperform 
+manual 
+prediction. 
+Dataset 
+inconsistenc
+y   affected 
+overall 
+reliability. 
+7 Designing 
+Disease 
+Prediction  Model 
+using ML 
+Approach – 
+Dahiwade    D., 
+Patle G., 
+Meshram E. 
+ICCMC, 
+2019 
+Used Decision Tree 
+and Random Forest 
+algorithms    for 
+prediction. 
+Provided 
+end-to-end 
+implementat
+ion and GUI 
+design. 
+Performance 
+not 
+evaluated on 
+large-scale 
+datasets. 
+8 Comparing 
+Different 
+BMC 
+Medical 
+Comprehensive 
+comparison    of 
+Found 
+Random 
+Did    not 
+include 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+11                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Supervised   ML 
+Algorithms   for 
+Disease 
+Prediction – 
+Uddin  S.,  Khan 
+A., Hossain M. E., 
+Moni M. A. 
+Informatics 
+and 
+Decision 
+Making, 
+2019 
+various ML 
+algorithms. 
+Forest  to  be 
+most 
+accurate and 
+stable. 
+ensemble 
+hybrid 
+approaches. 
+9 Application   of 
+Machine Learning 
+in Disease 
+Prediction – Kohli 
+P. S., Arora S. 
+IEEE 
+ICCCA, 
+2018 
+Applied   different 
+ML  algorithms  for 
+healthcare 
+prediction. 
+Proved ML’s 
+potential  in 
+automating 
+diagnosis. 
+Did    not 
+address  data 
+imbalance or 
+real-time 
+prediction. 
+10 Symptom-Based 
+Disease 
+Prediction  using 
+K-Means 
+Algorithm – 
+Balasubramanian 
+S.,  Subramanian 
+B. 
+Int.     J. 
+Advances in 
+Computer 
+Science and 
+Technology, 
+2019 
+Used    K-Means 
+clustering     for 
+unsupervised 
+symptom grouping. 
+Improved 
+pattern 
+recognition 
+and  feature 
+grouping. 
+Unsupervise
+d    nature 
+limited 
+diagnostic 
+accuracy. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+12                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Problem Definition  and Scope 
+ 
+5.1 Problem Statement 
+In today’s healthcare environment, the huge amount of medical data generated daily 
+remains underused because there are not enough smart systems to interpret it well. Patients 
+often do not notice or react to early symptoms of diseases, which leads to delayed diagnoses, 
+higher treatment costs, and lower recovery rates. At the same time, doctors face increasing 
+workloads that make it hard to provide timely and accurate diagnoses for every case. Current 
+healthcare  diagnostic  systems  mainly  rely  on  manual  evaluation  and  lack  automation  or 
+prediction features. This creates a strong need for an efficient, easy-to-use, and data-driven 
+system that can analyse user-reported symptoms, predict likely diseases with high accuracy, 
+and offer personalized health recommendations. This project aims to tackle these issues by 
+creating a machine learning-based predictive diagnosis framework. It will use algorithms like 
+Decision Tree, Random Forest, and Naïve Bayes to identify possible diseases and give users 
+practical healthcare advice. This will help both patients and healthcare professionals make early 
+and informed decisions. 
+ 
+5.1.1 Goals and objectives 
+• Automated Disease Prediction: To create and set up a system that forecasts possible 
+diseases based on the symptoms provided by the user, we will use machine learning 
+algorithms like Decision Tree, Random Forest, and Naïve Bayes. 
+• Early Diagnosis Support: To help users spot diseases early, we want to give them the 
+tools they need to take preventive or corrective action before the condition gets worse. 
+• Healthcare Assistance: To help doctors and healthcare professionals, we aim to reduce 
+their diagnostic workload with an AI-driven preliminary analysis system. 
+• Comprehensive Health Guidance: To give users useful information, including disease 
+details, precautionary measures, medication suggestions, diet, and workout plans, after 
+making a prediction. 
+• User-Friendly Web Interface: To create a web platform that offers easy access, simple 
+navigation, and usability for both medical professionals and regular users. 
+• Data Utilization and Learning: To use medical datasets effectively for training models 
+and to keep improving system performance with more data. 
+• Accuracy and Reliability: To improve diagnostic accuracy, we will use an ensemble 
+approach. This means we will confirm disease predictions when at least two algorithms 
+agree. 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+13                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+5.1.2 Statement of scope 
+The goal of this project is to create a smart web application that uses machine learning 
+to predict possible diseases based on symptoms users enter. It will also provide relevant health 
+recommendations,  including  precautions,  medications,  and  diet  plans.  The  system  uses 
+supervised learning algorithms such as Decision Tree, Random Forest, and Naïve Bayes to 
+analyse medical datasets and make precise predictions. The aim is to help users understand 
+potential health issues and take preventive steps before seeing a doctor. This project focuses on 
+symptom-based predictions and information guidance; it does not replace professional medical 
+advice or real-time clinical diagnosis. 
+ 
+5.2 Major Constraints 
+• Data Quality and Availability: The success of predictions relies a lot on the quality 
+and variety of the dataset. Data that is limited or biased can impact the system’s 
+reliability for various diseases and demographics. 
+• Model Accuracy and Generalization: Machine learning models might do well on 
+training data, but they often have trouble applying that knowledge to new or real-world 
+data. This issue is more pronounced if the dataset lacks enough variety. 
+• Limited Medical Validation: The system makes predictions based on data analysis, 
+not clinical testing. Therefore, it cannot replace professional medical diagnosis. 
+• Symptom  Overlap  and Ambiguity: Many  diseases  have  similar symptoms. This 
+makes it hard for the system to clearly tell them apart. 
+• Scalability of the Dataset: As the number of diseases and symptoms increases, model 
+complexity and computation time also increase. This requires more processing power 
+and optimization. 
+• User  Input  Dependency: The  system's  performance  relies  on  how  correct  and 
+complete the symptoms provided by the user are. Incorrect or unclear inputs can result 
+in misleading outcomes. 
+ 
+5.3 Methodologies of problem solving and efficiency issues 
+This project uses data-driven approach and various methods used for solving the related 
+problems efficiently are: 
+• Data Preprocessing: Remove missing, duplicate, and irrelevant data to reduce the 
+computational load and improve model accuracy. 
+• Feature Selection: Select only the most important symptom features to cut down 
+training time and prevent overfitting. 
+• Algorithm Choice: Use efficient algorithms like Decision Tree, Random Forest, and 
+Naïve Bayes, which provide fast and accurate predictions. 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+14                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+• Model Serialization: Save trained models with Pickle or joblib so predictions can be 
+made instantly without retraining. 
+• Caching of Results: Store frequently accessed predictions or datasets temporarily to 
+speed up processes and reduce repeated computations. 
+• Optimized Code Implementation: Use vectorized operations (NumPy, pandas) and 
+minimize loops to improve execution efficiency. 
+ 
+5.4 Outcome 
+• Accurate Disease Prediction: The system will predict possible diseases based on user-
+reported  symptoms  using  machine  learning  methods  like  Decision  Tree,  Random 
+Forest, and Naïve Bayes. 
+• Personalized Health Recommendations: Users will receive relevant health advice, 
+including  precautions,  medications,  and  diet  suggestions  tailored  to  the  predicted 
+disease. 
+• User-Friendly Web Application: A responsive and easy-to-use web interface will be 
+created, allowing users to interact with the system smoothly. 
+• Reduced Diagnostic Effort: The system will help users and healthcare professionals 
+by providing quick preliminary insights, which will cut down on manual diagnosis time. 
+• Improved Accessibility: The platform will make basic healthcare guidance available 
+to people in remote areas where immediate medical consultation might not be possible. 
+• Data-Driven Decision Support: The model will show how machine learning can be 
+used effectively for predictive healthcare analytics and decision-making. 
+ 
+5.5 Applications 
+• Healthcare Assistance Platforms: Can be integrated into online healthcare portals to 
+help users predict possible diseases and receive basic health guidance. 
+• Telemedicine Systems: These are useful for remote consultations. Doctors can use the 
+system to get quick insights based on symptoms reported by patients. 
+• Health Awareness and Education: This helps educate people about common diseases, 
+their symptoms, and preventive measures. It promotes self-awareness. 
+• Rural and Underserved Areas: This is beneficial in places with limited access to 
+medical professionals by providing quick and data-driven symptom analysis. 
+• Research and Analytics: Healthcare researchers can use this to study symptom-disease 
+patterns and improve predictive healthcare models. 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+15                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+5.6 Hardware Resources Required 
+Sr. 
+No 
+Hardware 
+Component 
+Specification Purpose/Function 
+1 Processor (CPU) Intel Core i5 or higher 
+(2.5 GHz or above) 
+To  perform  computations  and 
+execute machine learning algorithms 
+efficiently. 
+2 RAM Minimum   8   GB 
+(Recommended   16 
+GB) 
+For smooth data processing, model 
+training, and web server operation. 
+3 Storage 256  GB  SSD  or  500 
+GB HDD 
+To store datasets, trained models, and 
+project files. 
+4 Graphics  Processing 
+Unit (Optional) 
+NVIDIA  GPU  (e.g., 
+GTX 1050 or higher) 
+For  faster  model  training  and  data 
+visualization (optional for advanced 
+ML). 
+5 Network 
+Connectivity 
+Stable Internet 
+Connection 
+(Broadband/Wi-Fi) 
+To access online datasets, libraries, 
+and APIs. 
+ 
+5.7 Software Resources Required 
+Sr. 
+No 
+Software 
+Component 
+Specification Purpose/Function 
+1 Operating System Windows  10  /  11  or 
+Linux (Ubuntu) 
+Platform for developing and running 
+the web application and ML models. 
+2 Programming 
+Language 
+Python 3.8 or above Core language for machine learning 
+model  development  and  backend 
+logic. 
+3 Database Flask or Django For  developing  the  backend  web 
+application  and  integrating  ML 
+models. 
+4 Libraries / Packages scikit-learn,   pandas, 
+numpy,   matplotlib, 
+seaborn 
+For  data  preprocessing,  model 
+training, analysis, and visualization. 
+5 Frontend 
+Technologies 
+HTML, CSS, 
+JavaScript, React.js 
+To design and develop a user-friendly 
+web interface. 
+6 IDE / Code Editor VS  Code,  Jupyter 
+Notebook 
+For writing, debugging, and testing 
+application code. 
+7 Version Control Git / GitHub For maintaining source code versions 
+and project collaboration. 
+ 
+5.8 Testing Strategy 
+• Unit Testing: Each component of the system, like data preprocessing, model training, 
+symptom  input,  prediction  logic,  and  recommendation  generation,  will  be  tested 
+separately to ensure it works correctly. Python’s built-in unittest framework will be used 
+for this. 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+16                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+• Integration  Testing: After  checking  individual  modules,  integration  testing  will 
+confirm that all system components, including the frontend, backend, and ML models, 
+work  together  smoothly. This  includes  testing  how  the  Flask  or  Django  backend 
+interacts with the trained ML models, as well as the flow of user inputs and outputs. 
+• System Testing: The complete web application will be tested as a whole to ensure it 
+meets  all  the  specified  requirements.  This  includes  verifying  disease  prediction 
+accuracy,  recommendation  display,  and  performance  under  normal  and  high-load 
+situations. 
+• User Interface (UI) Testing: The web interface will be assessed for ease of navigation, 
+responsiveness, and accuracy of the displayed information. Tests will confirm that users 
+can easily enter symptoms and understand prediction results without confusion. 
+• Performance Testing: The system will be tested for response time, scalability, and 
+efficiency. The time taken for predictions, dataset loading, and model execution will be 
+measured to ensure smooth performance. 
+• Validation Testing: The accuracy of disease predictions will be validated using the 
+testing dataset, which usually consists of 20% of the total data. Metrics like accuracy, 
+precision, recall, and F1-score will be used to assess performance. 
+• Usability Testing: A small group of users will test the system and provide feedback on 
+its ease of use, clarity of results, and effectiveness of recommendations. Improvements 
+will be made based on their feedback. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+17                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Design Analysis 
+ 
+6.1 Use Case Diagram 
+ 
+ 
+ 
+6.2 Architecture Diagram 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+18                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+6.3 State Transition Diagram 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+19                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+6.4 Class Diagram 
+ 
+ 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+20                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Conclusion and future scope 
+ 
+7.1 Conclusion 
+The project “An Automated Symptom-to-Care Framework for Predictive Diagnosis and 
+Health Recommendation” offers a smart solution for predicting diseases based on user-input 
+symptoms. It uses machine learning algorithms such as Decision Tree, Random Forest, and 
+Naïve Bayes. The system provides accurate predictions and helpful health recommendations 
+through an easy-to-use web interface. It helps users spot potential health problems early and 
+take preventive steps. This framework acts as a supportive healthcare tool, but it is not a 
+substitute for professional medical advice. 
+ 
+7.2 Future Scope 
+• Integration with IoT and Wearable Devices: The system can improve by collecting 
+real-time health data, such as heart rate, temperature, and blood pressure from wearable 
+devices, to enhance prediction accuracy. 
+• Use of Deep Learning Models: Algorithms like Neural Networks or CNNs can be used 
+to manage larger datasets and boost disease classification accuracy. 
+• Mobile Application Development: A dedicated mobile app can be created to make the 
+system more accessible and user-friendly for patients on the go. 
+• Integration with Electronic Health Records (EHR): Connecting with hospital or 
+clinical databases can help offer more accurate and personalized predictions. 
+• Voice and Chatbot Assistance: Adding voice-based or chatbot interfaces can make the 
+system interactive and help users describe their symptoms easily. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+21                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+ 
+References 
+ 
+• S. Uddin, A. Khan, M. E. Hossain, and M. A. Moni, “Comparing different supervised 
+machine learning algorithms for disease prediction,” BMC Medical Informatics and 
+Decision Making, vol. 19, no. 1, pp. 1–16, 2019. 
+• P. S. Kohli and S. Arora, “Application of machine learning in disease prediction,” in 
+Proc. IEEE International Conference on Computing, Communication and Automation 
+(ICCCA), 2018, pp. 1–6. 
+• K. Pingale, S. Surwase, V. Kulkarni, S. Sarage, and A. Karve, “Disease prediction 
+using machine learning,” International Research Journal of Engineering and 
+Technology (IRJET), vol. 6, no. 12, 2019. 
+• Dahiwade, G. Patle, and E. Meshram, “Designing disease prediction model using 
+machine learning approach,” in Proc. IEEE International Conference on Computing, 
+Communication and Control (ICCMC), 2019, pp. 1–5. 
+• S. Grampurohit and C. Sagarnal, “Disease prediction using machine learning 
+algorithms,” in Proc. International Conference for Emerging Technology (INCET), 
+2020, pp. 1–6. 
+• R. H. Chauhan, D. N. Naik, R. A. Halpati, S. J. Patel, and A. D. Prajapati, “Disease 
+prediction using machine learning,” IRJET, vol. 7, no. 5, 2020. 
+• S. Balasubramanian and B. Subramanian, “Symptom-based disease prediction in 
+medical system using K-means,” International Journal of Advances in Computer 
+Science and Technology, vol. 8, no. 3, 2019. 
+• “Decision Tree Based Health Prediction System,” International Journal for Research 
+in Applied Science and Engineering Technology (IJRASET), vol. 8, no. 6, 2020. 
+• Shilimkar, “Disease prediction using machine learning,” International Journal of 
+Scientific Research in Science and Technology (IJSRST), vol. 8, no. 3, pp. 657–662, 
+2021. 
+• N. Kosarkar, A. Kothule, M. Gaikwad, S. Dongre, and N. Bhuyar, “Disease prediction 
+using machine learning,” in Proc. IEEE International Conference on Emerging Trends 
+in Engineering & Technology – Signal and Information Processing (ICETET-SIP), 
+2022, pp. 1–5. 
+ 
+ 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+22                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Information of Project Group Members 
+ 
+1. Name: Aryan Jitendra Meher 
+2. Date of Birth: 5
+th
+ August 2004 
+3. Gender: Male 
+4. Permanent Address: Rahane Mala, Sangamner 
+5. E-Mail: aryanmeher5000@gmail.com 
+6. Mobile/Contact No: 9922423392 
+7. Placement Details: Placed 
+8. Paper Published: No 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+23                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Information of Project Group Members 
+ 
+1. Name: Huzaifa Shakil Khan 
+2. Date of Birth: 24
+th
+ August 2004 
+3. Gender: Male 
+4. Permanent Address: Shakuntala Nagar, Manmad 
+5. E-Mail: hskhan4759@gmail.com 
+6. Mobile/Contact No: 9665926300 
+7. Placement Details: On-going 
+8. Paper Published: No 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+24                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+ 
+Information of Project Group Members 
+ 
+1. Name: Sujal Dinesh Mendhe 
+2. Date of Birth: 2
+nd
+ July 2004 
+3. Gender: Male 
+4. Permanent Address: Bacheratoli, Navegoan Kheri, Nagpur 
+5. E-Mail: sujalmendhe420@gmail.com 
+6. Mobile/Contact No: 7499491745 
+7. Placement Details: Placed 
+8. Paper Published: No 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BE Project Sem-I                                                                                                 An Automated Symptom-to-Care Framework 
+25                                                                           D.Y.P.C.O.E., Akurdi, Pune – Department of Computer Engineering 
+ 
+Information of Project Group Members 
+ 
+1. Name: Swapnil Navnath Ide 
+2. Date of Birth: 13
+th
+ May 2005 
+3. Gender: Male 
+4. Permanent Address: At.Po. Mutkhel, Akole 
+5. E-Mail: swapnilide9@gmail.com 
+6. Mobile/Contact No: 8623906501 
+7. Placement Details: On-going 
+8. Paper Published: No 
+ 
